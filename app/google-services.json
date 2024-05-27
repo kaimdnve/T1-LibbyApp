@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "689272988371",
-    "firebase_url": "https://testproject-4d8fe-default-rtdb.firebaseio.com",
-    "project_id": "testproject-4d8fe",
-    "storage_bucket": "testproject-4d8fe.appspot.com"
+    "project_number": "136671164252",
+    "firebase_url": "https://pure-justice-382516-default-rtdb.firebaseio.com",
+    "project_id": "pure-justice-382516",
+    "storage_bucket": "pure-justice-382516.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:689272988371:android:f53bd6d797ea75c237aa26",
+        "mobilesdk_app_id": "1:136671164252:android:9be6678771cecfd0f0f399",
         "android_client_info": {
           "package_name": "com.example.libbyapp"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAG5ViQJky-x6A_Rf8yk4GBhfvoFSuGpfs"
+          "current_key": "AIzaSyCgcYLcWKKA5IE-hxo1KY1NJcG5Y4HOi4I"
         }
       ],
       "services": {
