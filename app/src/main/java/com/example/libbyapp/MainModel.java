@@ -4,10 +4,10 @@ public class MainModel {
 
     String name, course, email, surl;
 
-    MainModel()
-    {
+    MainModel() {
 
     }
+
     public MainModel(String name, String course, String email, String surl) {
         this.name = name;
         this.course = course;

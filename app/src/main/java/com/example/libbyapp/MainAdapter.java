@@ -1,5 +1,6 @@
 package com.example.libbyapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -29,36 +30,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.MainViewHolder> {
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+
     public MainAdapter(@NonNull FirebaseRecyclerOptions<MainModel> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull MainViewHolder holder, final int position, @NonNull MainModel model) {
+    protected void onBindViewHolder(@NonNull MainViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull MainModel model) {
         holder.name.setText(model.getName());
         holder.course.setText(model.getCourse());
         holder.email.setText(model.getEmail());
 
-        Glide.with(holder.img.getContext())
-                .load(model.getSurl())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .circleCrop()
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.img);
+        Glide.with(holder.img.getContext()).load(model.getSurl()).placeholder(R.drawable.ic_launcher_foreground).circleCrop().error(R.drawable.ic_launcher_background).into(holder.img);
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.img.getContext())
-                        .setContentHolder(new ViewHolder(R.layout.update_popup))
-                        .setExpanded(true, 1200)
-                        .create();
+                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.img.getContext()).setContentHolder(new ViewHolder(R.layout.update_popup)).setExpanded(true, 1200).create();
 
                 View view = dialogPlus.getHolderView();
 
@@ -85,22 +73,19 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
                         data.put("email", email.getText().toString());
                         data.put("surl", surl.getText().toString());
 
-                        FirebaseDatabase.getInstance().getReference().child("teachers")
-                                .child(getRef(position).getKey()).updateChildren(data)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(holder.img.getContext(), "Data Update Successfully", Toast.LENGTH_SHORT).show();
-                                        dialogPlus.dismiss();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(holder.img.getContext(), "Error While Updating", Toast.LENGTH_SHORT).show();
-                                        dialogPlus.dismiss();
-                                    }
-                                });
+                        FirebaseDatabase.getInstance().getReference().child("teachers").child(getRef(position).getKey()).updateChildren(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(holder.img.getContext(), "Data Update Successfully", Toast.LENGTH_SHORT).show();
+                                dialogPlus.dismiss();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(holder.img.getContext(), "Error While Updating", Toast.LENGTH_SHORT).show();
+                                dialogPlus.dismiss();
+                            }
+                        });
                     }
                 });
             }
@@ -117,18 +102,17 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseDatabase.getInstance().getReference().child("teachers")
-                                .child(getRef(position).getKey()).removeValue();
+                        FirebaseDatabase.getInstance().getReference().child("teachers").child(getRef(position).getKey()).removeValue();
 
-                }
-            });
+                    }
+                });
 
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(holder.name.getContext(), "Cancelled.", Toast.LENGTH_SHORT).show();
-                }
-            });
+                    }
+                });
                 builder.show();
             }
         });
