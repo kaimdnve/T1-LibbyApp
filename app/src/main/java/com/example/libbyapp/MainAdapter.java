@@ -73,16 +73,16 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
                         data.put("email", email.getText().toString());
                         data.put("surl", surl.getText().toString());
 
-                        FirebaseDatabase.getInstance().getReference().child("teachers").child(getRef(position).getKey()).updateChildren(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        FirebaseDatabase.getInstance().getReference().child("LibbyApp").child(getRef(position).getKey()).updateChildren(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(holder.img.getContext(), "Data Update Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(holder.img.getContext(), "Data Berhasil Diupdate", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(holder.img.getContext(), "Error While Updating", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(holder.img.getContext(), "Eror Saat Update Data", Toast.LENGTH_SHORT).show();
                                 dialogPlus.dismiss();
                             }
                         });
@@ -96,21 +96,21 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.name.getContext());
-                builder.setTitle("Are you Sure?");
-                builder.setMessage("Delete data can't be undo.");
+                builder.setTitle("Apa anda yakin ingin menghapus data?");
+                builder.setMessage("Penghapusan data tidak dapat dikembalikan.");
 
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseDatabase.getInstance().getReference().child("teachers").child(getRef(position).getKey()).removeValue();
+                        FirebaseDatabase.getInstance().getReference().child("LibbyApp").child(getRef(position).getKey()).removeValue();
 
                     }
                 });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(holder.name.getContext(), "Cancelled.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(holder.name.getContext(), "Dibatalkan.", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        FirebaseRecyclerOptions<MainModel> options = new FirebaseRecyclerOptions.Builder<MainModel>().setQuery(FirebaseDatabase.getInstance().getReference("teachers"), MainModel.class).build();
+        FirebaseRecyclerOptions<MainModel> options = new FirebaseRecyclerOptions.Builder<MainModel>().setQuery(FirebaseDatabase.getInstance().getReference("LibbyApp"), MainModel.class).build();
 
         mainAdapter = new MainAdapter(options);
         recyclerView.setAdapter(mainAdapter);
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void txtSearch(String str) {
-        FirebaseRecyclerOptions<MainModel> options = new FirebaseRecyclerOptions.Builder<MainModel>().setQuery(FirebaseDatabase.getInstance().getReference("teachers").orderByChild("name").startAt(str).endAt(str + "~"), MainModel.class).build();
+        FirebaseRecyclerOptions<MainModel> options = new FirebaseRecyclerOptions.Builder<MainModel>().setQuery(FirebaseDatabase.getInstance().getReference("LibbyApp").orderByChild("name").startAt(str).endAt(str + "~"), MainModel.class).build();
 
         mainAdapter = new MainAdapter(options);
         mainAdapter.startListening();
